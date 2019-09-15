@@ -1,0 +1,27 @@
+int main() {
+    decl
+        int it, y, z, t, v;
+    enddecl
+    begin
+        it = 2;
+        while(it <= 100) do
+            y = 2;
+            z = 0;
+            v = y * y;
+            while (v <= it) do
+                t = it % y;
+                if (t == 0) then
+                    z = 1;
+                    break;
+                endif;
+                y = y + 1;
+                v = y * y;
+            endwhile;
+            if (z == 0) then
+                t = exposcall("Write", -2, it);
+            endif;
+            it = it + 1;
+        endwhile;
+        return 0;
+    end
+}

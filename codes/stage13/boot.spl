@@ -1,0 +1,137 @@
+//library
+loadi(63, 13);
+loadi(64, 14);
+
+//exception handler
+loadi(2, 15);
+loadi(3, 16);
+
+//INT=10 routine
+loadi(22, 35);
+loadi(23, 36);
+
+//INT=7 routine
+loadi(16, 29);
+loadi(17, 30);
+
+//timer interrupt handler
+loadi(4, 17);
+loadi(5, 18);
+
+//INIT program
+loadi(65, 7);
+loadi(66, 8);
+
+//exec program
+loadi(84, 69);
+
+//scheduler 
+loadi(50,63);
+loadi(51,64);
+
+
+//setting the Page Table for the INIT program (pid = 1)
+PTBR = PAGE_TABLE_BASE + 20;
+PTLR = 10;
+
+//Library
+[PTBR+0] = 63;
+[PTBR+1] = "0100";
+[PTBR+2] = 64;
+[PTBR+3] = "0100";
+
+//Heap
+[PTBR+4] = 78;
+[PTBR+5] = "0110";
+[PTBR+6] = 79;
+[PTBR+7] = "0110";
+
+//Code
+[PTBR+8] = 65;
+[PTBR+9] = "0100";
+[PTBR+10] = 66;
+[PTBR+11] = "0100";
+[PTBR+12] = -1;
+[PTBR+13] = "0000";
+[PTBR+14] = -1;
+[PTBR+15] = "0000";
+
+//Stack
+[PTBR+16] = 76;
+[PTBR+17] = "0110";
+[PTBR+18] = 77;
+[PTBR+19] = "0110";
+
+
+//storing the IP to the top of the user stack, setting the SP
+//transfering entry point value from header of INIT process to top of user stack of INIT process
+[76 * 512] = [65 * 512 + 1];
+
+//setting the process table for the init program
+[PROCESS_TABLE + 17] = 1;                       
+[PROCESS_TABLE + 20] = CREATED;                 
+[PROCESS_TABLE + 27] = 83;                      
+[PROCESS_TABLE + 28] = 0;                       // Kernel SP
+[PROCESS_TABLE + 29] = 8 * 512;                 // User SP
+[PROCESS_TABLE + 30] = PAGE_TABLE_BASE + 20;    
+[PROCESS_TABLE + 31] = 10;
+
+
+
+//setting the Page Table for executable program (pid = 2)
+
+//Library
+[PAGE_TABLE_BASE+40] = 63;
+[PAGE_TABLE_BASE+41] = "0100";
+[PAGE_TABLE_BASE+42] = 64;
+[PAGE_TABLE_BASE+43] = "0100";
+
+//Heap
+[PAGE_TABLE_BASE+44] = 85;
+[PAGE_TABLE_BASE+45] = "0110";
+[PAGE_TABLE_BASE+46] = 86;
+[PAGE_TABLE_BASE+47] = "0110";
+
+//Code
+[PAGE_TABLE_BASE+48] = 84;
+[PAGE_TABLE_BASE+49] = "0100";
+[PAGE_TABLE_BASE+50] = -1;
+[PAGE_TABLE_BASE+51] = "0000";
+[PAGE_TABLE_BASE+52] = -1;
+[PAGE_TABLE_BASE+53] = "0000";
+[PAGE_TABLE_BASE+54] = -1;
+[PAGE_TABLE_BASE+55] = "0000";
+
+//Stack
+[PAGE_TABLE_BASE+56] = 86;
+[PAGE_TABLE_BASE+57] = "0110";
+[PAGE_TABLE_BASE+58] = 87;
+[PAGE_TABLE_BASE+59] = "0110";
+
+//storing the IP to the top of the user stack, setting the SP
+[86 * 512] = [84 * 512 + 1];
+
+
+//setting the process table for executable program
+[PROCESS_TABLE + 33] = 2;
+[PROCESS_TABLE + 36] = CREATED;
+[PROCESS_TABLE + 43] = 88;
+[PROCESS_TABLE + 44] = 0;
+[PROCESS_TABLE + 45] = 8 * 512;
+[PROCESS_TABLE + 46] = PAGE_TABLE_BASE + 40;
+[PROCESS_TABLE + 47] = 10;
+
+
+//initializing STATE field of all other process table entries to TERMINATED
+alias pt R0;
+pt = 3;
+while(pt < MAX_PROC_NUM) do
+    [PROCESS_TABLE + pt * 16 + 4] = TERMINATED;
+    pt = pt + 1;
+endwhile;
+
+
+return;
+                      
+
+return;

@@ -1,0 +1,68 @@
+//obtain current process & its process table
+alias curProc R0;
+alias processTable R1;
+curProc = [SYSTEM_STATUS_TABLE + 1];
+processTable = PROCESS_TABLE + 16 * curProc;
+
+//push base pointer to top of kernel stack
+SP = SP + 1;
+[SP] = BP;
+
+//obtaining the process table of current PID
+[processTable + 12] = SP % 512;
+[processTable + 14] = PTBR;
+[processTable + 15] = PTLR;
+
+
+//finding pid of new process
+alias it R2;
+alias newProc R5;
+if(curProc == MAX_PROC_NUM - 1) then
+    it = 1;
+else it = curProc + 1;
+endif;
+
+
+while(curProc != it) do
+    alias state R3;
+    state = [PROCESS_TABLE + 16 * it + 4];
+    if(state == CREATED || state == READY) then
+        break;
+    endif;
+    if(it + 1 == MAX_PROC_NUM) then
+        it = 1;
+    else it = it + 1;
+    endif;
+endwhile;
+
+
+//no process found, idle process scheduled
+if(it == curProc) then
+    newProc = 0;
+else newProc = it;
+endif;
+
+
+//process table entries of the new process
+alias newProcTable R6;
+newProcTable = PROCESS_TABLE + 16 * newProc;
+PTBR = [newProcTable + 14];
+PTLR = [newProcTable + 15];
+[SYSTEM_STATUS_TABLE + 1] = newProc;
+
+
+//returning the control to new process/timer
+if([newProcTable + 4] == CREATED) then
+    //this returns the control to the new program that has not yet been scheduled
+    SP = [newProcTable + 13];
+    [newProcTable + 4] = RUNNING;
+    [newProcTable + 9] = 0;
+    ireturn;
+else
+    [newProcTable + 4] = RUNNING;
+    [newProcTable + 9] = 0;
+    SP = [newProcTable + 11] * 512 + [newProcTable + 12];
+    BP = [SP];
+    SP = SP - 1;
+    return;
+endif;

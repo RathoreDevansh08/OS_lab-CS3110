@@ -1,0 +1,12 @@
+load --library ../expl/library.lib
+load --os ../codes/stage14/os_start.xsm
+load --int=10 ../codes/stage14/int10.xsm
+load --idle ../codes/stage14/idle.xsm
+load --init ../codes/stage14/odd.xsm
+load --exec ../codes/stage14/even.xsm
+load --exec ../codes/stage14/prime.xsm
+load --module 7 ../codes/stage14/boot_as1.xsm
+load --module 5 ../codes/stage14/scheduler.xsm
+load --int=timer ../codes/stage14/timer14.xsm
+load --exhandler ../spl/spl_progs/haltprog.xsm
+load --int=7 ../spl/spl_progs/sample_int7.xsm

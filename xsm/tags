@@ -1,0 +1,646 @@
+ADD	machine.h	25
+BACKUP	machine.h	52
+BEGIN	lex.yy.c	117
+BP	registers.h	34
+BRKP	machine.h	45
+CALL	machine.h	43
+CC	Makefile	/^CC = cc$/
+CFLAGS	Makefile	/^CFLAGS = -g$/
+DCR	machine.h	31
+DEBUG_BUFFERTABLE	debug.h	29
+DEBUG_COMMAND_LEN	debug.h	11
+DEBUG_CONTINUE	debug.h	15
+DEBUG_COUNT	debug.h	43
+DEBUG_DISKFREELIST	debug.h	32
+DEBUG_DISKMAPTABLE	debug.h	20
+DEBUG_DISKSTATUS	debug.h	26
+DEBUG_ERROR	debug.h	78
+DEBUG_EXIT	debug.h	40
+DEBUG_FETCH	memory.h	15
+DEBUG_FILESTATUS	debug.h	25
+DEBUG_FILETABLE	debug.h	22
+DEBUG_HELP	debug.h	41
+DEBUG_INODETABLE	debug.h	30
+DEBUG_LIST	debug.h	38
+DEBUG_LIST_LEN	debug.h	53
+DEBUG_LOCATION	debug.h	34
+DEBUG_LOC_BUFFERTABLE	debug.h	61
+DEBUG_LOC_DFL	debug.h	65
+DEBUG_LOC_DISKMAPTABLE	debug.h	62
+DEBUG_LOC_DISKSTATUS	debug.h	58
+DEBUG_LOC_FILESTATUS	debug.h	57
+DEBUG_LOC_FILETABLE	debug.h	55
+DEBUG_LOC_INODE	debug.h	66
+DEBUG_LOC_MFL	debug.h	64
+DEBUG_LOC_PT	debug.h	45
+DEBUG_LOC_ROOTFILE	debug.h	63
+DEBUG_LOC_SEMTABLE	debug.h	56
+DEBUG_LOC_SYSTEMSTATUS	debug.h	59
+DEBUG_LOC_TERMINALSTATUS	debug.h	60
+DEBUG_LOC_USERTABLE	debug.h	67
+DEBUG_MAX_WP	debug.h	77
+DEBUG_MEM	debug.h	17
+DEBUG_MEMFREELIST	debug.h	24
+DEBUG_PAGE	debug.h	39
+DEBUG_PAGETABLE	debug.h	19
+DEBUG_PCB	debug.h	18
+DEBUG_PROC_RUNNING	debug.h	48
+DEBUG_PT_BASE	debug.h	51
+DEBUG_REG	debug.h	16
+DEBUG_RESOURCETABLE	debug.h	21
+DEBUG_ROOTFILE	debug.h	33
+DEBUG_SEMTABLE	debug.h	23
+DEBUG_STEP	debug.h	14
+DEBUG_STRING_LEN	debug.h	12
+DEBUG_SYSTEMSTATUS	debug.h	27
+DEBUG_TERMINALSTATUS	debug.h	28
+DEBUG_USERTABLE	debug.h	31
+DEBUG_VAL	debug.h	35
+DEBUG_WATCH	debug.h	36
+DEBUG_WATCHCLEAR	debug.h	37
+DIV	machine.h	28
+EC	registers.h	41
+ECHO	lex.yy.c	582
+ECHO	parse.l	69
+EIP	registers.h	40
+EMA	registers.h	43
+ENCRYPT	machine.h	51
+EOB_ACT_CONTINUE_SCAN	lex.yy.c	161
+EOB_ACT_END_OF_FILE	lex.yy.c	162
+EOB_ACT_LAST_MATCH	lex.yy.c	163
+EPN	registers.h	42
+EQ	machine.h	34
+EXIT_FAILURE	simulator.h	13
+EXIT_SUCCESS	simulator.h	12
+EXP_ARITH	exception.h	10
+EXP_ILLINSTR	exception.h	8
+EXP_ILLMEM	exception.h	9
+EXP_PAGEFAULT	exception.h	7
+FALSE	constants.h	33
+FLEXINT_H	lex.yy.c	29
+FLEX_BETA	lex.yy.c	13
+FLEX_SCANNER	lex.yy.c	8
+GE	machine.h	36
+GT	machine.h	33
+HALT	machine.h	59
+HE	debug.o	14
+IN	machine.h	55
+INI	machine.h	56
+INITIAL	lex.yy.c	487
+INR	machine.h	30
+INSTR_FETCH	memory.h	13
+INT	machine.h	46
+INT16_MAX	lex.yy.c	71
+INT16_MIN	lex.yy.c	62
+INT32_MAX	lex.yy.c	74
+INT32_MIN	lex.yy.c	65
+INT8_MAX	lex.yy.c	68
+INT8_MIN	lex.yy.c	59
+INTERRUPT_HIGH	machine.h	67
+INTERRUPT_LOW	machine.h	66
+IP	registers.h	36
+IRET	machine.h	58
+JMP	machine.h	40
+JNZ	machine.h	39
+JZ	machine.h	38
+LE	machine.h	37
+LEX	Makefile	/^LEX = lex$/
+LOAD	machine.h	49
+LOADI	machine.h	48
+LT	machine.h	32
+MAX_BUFFER	debug.h	74
+MAX_FILE_NUM	debug.h	70
+MAX_MEM_PAGE	debug.h	73
+MAX_NUM_PAGES	debug.h	49
+MAX_OPENFILE_NUM	debug.h	69
+MAX_PROC_NUM	debug.h	46
+MAX_RESOURCE	debug.h	75
+MAX_SEM_COUNT	debug.h	72
+MAX_USER_NUM	debug.h	71
+MOD	machine.h	29
+MOV	machine.h	24
+MUL	machine.h	27
+Mmain	main.c	/^int main(int argc, char **argv)$/
+NE	machine.h	35
+NOP	machine.h	60
+OFF	debug.h	8
+ON	debug.h	9
+OPER_FETCH	memory.h	14
+OUT	machine.h	57
+P0	registers.h	29
+P1	registers.h	30
+P2	registers.h	31
+P3	registers.h	32
+POP	machine.h	42
+PORT	machine.h	54
+PRIVILEGE_KERNEL	machine.h	19
+PRIVILEGE_USER	machine.h	18
+PTBR	registers.h	38
+PTBR_PCB_OFFSET	debug.h	50
+PTLR	registers.h	39
+PT_ENTRY_SIZE	debug.h	47
+PUSH	machine.h	41
+R0	mem	1
+R0	mem	27
+R0	registers.h	8
+R1	registers.h	9
+R10	registers.h	18
+R11	registers.h	19
+R12	registers.h	20
+R13	registers.h	21
+R14	registers.h	22
+R15	registers.h	23
+R16	mem	3
+R16	mem	5
+R16	mem	7
+R16	mem	9
+R16	mem	11
+R16	mem	15
+R16	mem	17
+R16	mem	23
+R16	mem	25
+R16	registers.h	24
+R17	mem	13
+R17	registers.h	25
+R18	registers.h	26
+R19	registers.h	27
+R2	registers.h	10
+R3	registers.h	11
+R4	registers.h	12
+R5	registers.h	13
+R6	registers.h	14
+R7	registers.h	15
+R8	registers.h	16
+R9	registers.h	17
+REG_COUNT	registers.h	51
+REG_KERN_HIGH	registers.h	49
+REG_KERN_LOW	registers.h	48
+REG_PORT_HIGH	registers.h	46
+REG_PORT_LOW	registers.h	45
+REJECT	lex.yy.c	458
+RESOURCE_OFFSET	debug.h	52
+RESTORE	machine.h	53
+RET	machine.h	44
+RM	Makefile	/^RM = rm$/
+SIZE_MAX	lex.yy.c	87
+SP	registers.h	35
+STORE	machine.h	50
+SUB	machine.h	26
+Simulator	README.md	1
+TOKEN_COMMA	lexer.h	11
+TOKEN_DREF_L	lexer.h	8
+TOKEN_DREF_R	lexer.h	9
+TOKEN_INSTRUCTION	lexer.h	10
+TOKEN_KERN_HIGH	machine.h	64
+TOKEN_KERN_LOW	machine.h	63
+TOKEN_NUMBER	lexer.h	6
+TOKEN_REGISTER	lexer.h	5
+TOKEN_STRING	lexer.h	7
+TRUE	constants.h	29
+UINT16_MAX	lex.yy.c	80
+UINT32_MAX	lex.yy.c	83
+UINT8_MAX	lex.yy.c	77
+XSM_ADDR_DREF	machine.h	15
+XSM_ADDR_NODREF	machine.h	16
+XSM_CONSOLE_BUSY	constants.h	26
+XSM_CONSOLE_DURATION	simulator.c	14
+XSM_CONSOLE_IDLE	constants.h	25
+XSM_CONSOLE_PRINT	machine.h	74
+XSM_CONSOLE_READ	machine.h	75
+XSM_CONSTANTS_H	constants.h	3
+XSM_DEBUG_H	debug.h	3
+XSM_DEFAULT_DISK	constants.h	42
+XSM_DISKOP_LOAD	machine.h	71
+XSM_DISKOP_STORE	machine.h	72
+XSM_DISK_BLOCK_NUM	disk.h	7
+XSM_DISK_BLOCK_SIZE	disk.h	8
+XSM_DISK_BUSY	constants.h	22
+XSM_DISK_DURATION	simulator.c	13
+XSM_DISK_H	disk.h	3
+XSM_DISK_IDLE	constants.h	21
+XSM_EXCEPTION_H	exception.h	3
+XSM_EXCEPTION_OCCURED	machine.h	21
+XSM_FAILURE	constants.h	16
+XSM_HALT	machine.h	78
+XSM_ILLINSTR	constants.h	14
+XSM_INSTRUCTION_COUNT	machine.h	69
+XSM_INSTRUCTION_SIZE	constants.h	18
+XSM_INTERRUPT_CONSOLE	constants.h	40
+XSM_INTERRUPT_DISK	constants.h	39
+XSM_INTERRUPT_EXCEPTION	constants.h	37
+XSM_INTERRUPT_EXHANDLER	machine.h	77
+XSM_INTERRUPT_TIMER	constants.h	38
+XSM_LEXER_H	lexer.h	3
+XSM_MACHINE_H	machine.h	3
+XSM_MEMORY_H	memory.h	3
+XSM_MEMORY_NUMPAGES	constants.h	8
+XSM_MEMORY_SIZE	memory.h	8
+XSM_MEM_ILLPAGE	memory.h	11
+XSM_MEM_NOWRITE	memory.h	9
+XSM_MEM_PAGEFAULT	memory.h	10
+XSM_NUM_REG	constants.h	12
+XSM_PAGE_SIZE	constants.h	9
+XSM_REGISTERS_H	registers.h	3
+XSM_REGSIZE	constants.h	11
+XSM_SIMULATOR_DEFCONSOLE	simulator.h	8
+XSM_SIMULATOR_DEFDEBUG	simulator.h	7
+XSM_SIMULATOR_DEFDISK	simulator.h	10
+XSM_SIMULATOR_DEFTIMER	simulator.h	9
+XSM_SIMULATOR_H	simulator.h	3
+XSM_SUCCESS	constants.h	15
+XSM_TIMER_DURATION	simulator.c	12
+XSM_TOKENIZE_H	tokenize.h	3
+XSM_TYPES_H	types.h	3
+XSM_TYPE_INTEGER	types.h	8
+XSM_TYPE_STRING	types.h	7
+XSM_WORD_H	word.h	3
+XSM_WORD_SIZE	constants.h	7
+YYSTATE	lex.yy.c	123
+YYSTYPE	lexer.h	13
+YYSTYPE	lexer.h	16
+YYTABLES_NAME	lex.yy.c	1846
+YY_AT_BOL	lex.yy.c	/^#define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_/
+YY_BREAK	lex.yy.c	661
+YY_BUFFER_EOF_PENDING	lex.yy.c	243
+YY_BUFFER_NEW	lex.yy.c	231
+YY_BUFFER_NORMAL	lex.yy.c	232
+YY_BUFFER_STATE	lex.yy.c	149
+YY_BUF_SIZE	lex.yy.c	137
+YY_BUF_SIZE	lex.yy.c	139
+YY_CHAR	lex.yy.c	324
+YY_CURRENT_BUFFER	lex.yy.c	259
+YY_CURRENT_BUFFER_LVALUE	lex.yy.c	265
+YY_DECL	lex.yy.c	649
+YY_DECL_IS_OURS	lex.yy.c	645
+YY_DO_BEFORE_ACTION	lex.yy.c	347
+YY_END_OF_BUFFER	lex.yy.c	354
+YY_END_OF_BUFFER_CHAR	lex.yy.c	128
+YY_EXIT_FAILURE	lex.yy.c	1642
+YY_EXTRA_TYPE	lex.yy.c	498
+YY_FATAL_ERROR	lex.yy.c	/^#define YY_FATAL_ERROR(msg) yy_fatal_error( msg )$/
+YY_FLEX_MAJOR_VERSION	lex.yy.c	9
+YY_FLEX_MINOR_VERSION	lex.yy.c	10
+YY_FLEX_SUBMINOR_VERSION	lex.yy.c	11
+YY_FLUSH_BUFFER	lex.yy.c	293
+YY_INPUT	parse.l	/^   #define YY_INPUT(buffer,read_bytes,max)\\$/
+YY_INPUT	lex.yy.c	/^#define YY_INPUT(buf,result,max_size) \\$/
+YY_INT_ALIGNED	lex.yy.c	4
+YY_LESS_LINENO	lex.yy.c	/^    #define YY_LESS_LINENO(n)$/
+YY_LINENO_REWIND_TO	lex.yy.c	/^    #define YY_LINENO_REWIND_TO(ptr)$/
+YY_MORE_ADJ	lex.yy.c	460
+YY_NEW_FILE	lex.yy.c	127
+YY_NULL	lex.yy.c	106
+YY_NUM_RULES	lex.yy.c	353
+YY_READ_BUF_SIZE	lex.yy.c	571
+YY_READ_BUF_SIZE	lex.yy.c	573
+YY_RESTORE_YY_MORE_OFFSET	lex.yy.c	461
+YY_RULE_SETUP	lex.yy.c	664
+YY_RULE_SETUP	parse.l	69
+YY_SC_TO_UI	lex.yy.c	/^#define YY_SC_TO_UI(c) ((YY_CHAR) (c))$/
+YY_START	lex.yy.c	122
+YY_START_STACK_INCR	lex.yy.c	631
+YY_STATE_BUF_SIZE	lex.yy.c	145
+YY_STATE_EOF	lex.yy.c	/^#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + st/
+YY_STATE_EOF	lex.yy.c	/^case YY_STATE_EOF(INITIAL):$/
+YY_STRUCT_YY_BUFFER_STATE	lex.yy.c	184
+YY_TYPEDEF_YY_BUFFER_STATE	lex.yy.c	148
+YY_TYPEDEF_YY_SIZE_T	lex.yy.c	153
+YY_USER_ACTION	lex.yy.c	656
+__STDC_LIMIT_MACROS	lex.yy.c	39
+_console_operation	machine.h	87
+_curr_token	tokenize.c	7
+_curr_token_type	tokenize.c	9
+_db_commands_lh	debug.c	13
+_db_commands_sh	debug.c	43
+_db_status	debug.c	11
+_debug_status	debug.h	84
+_disk_mem_copy	disk.c	11
+_disk_operation	machine.h	80
+_exception	exception.c	9
+_file	disk.c	13
+_la_exists	tokenize.c	8
+_mem_size	disk.c	15
+_options	simulator.h	15
+_register_names	registers.c	12
+_registers	registers.c	10
+_thecpu	machine.c	11
+_theoptions	machine.c	13
+_xsm_cpu	machine.h	93
+_xsm_exception	exception.h	12
+_xsm_mem	memory.c	10
+_xsm_options	machine.h	110
+_xsm_word	types.h	10
+clean	Makefile	/^clean:$/
+command	debug.h	93
+console	machine.h	115
+console_op	machine.h	104
+console_operation	machine.h	91
+console_state	machine.h	99
+console_wait	machine.h	99
+debug	machine.h	113
+debug.o	Makefile	/^debug.o: debug.c debug.h$/
+debug_activate	debug.c	/^void debug_activate()$/
+debug_active_process	debug.c	/^int debug_active_process()$/
+debug_command	debug.c	/^int debug_command(char *command)$/
+debug_command_code	debug.c	/^int debug_command_code(const char *cmd)$/
+debug_deactivate	debug.c	/^void debug_deactivate()$/
+debug_display_all_registers	debug.c	/^int debug_display_all_registers()$/
+debug_display_bt	debug.c	/^int debug_display_bt()$/
+debug_display_dfl	debug.c	/^int debug_display_dfl()$/
+debug_display_dmt	debug.c	/^int debug_display_dmt()$/
+debug_display_dst	debug.c	/^int debug_display_dst()$/
+debug_display_fields	debug.c	/^int debug_display_fields(int baseptr, const char */
+debug_display_fst	debug.c	/^int debug_display_fst()$/
+debug_display_ft	debug.c	/^int debug_display_ft()$/
+debug_display_help	debug.c	/^void debug_display_help()$/
+debug_display_inodetable	debug.c	/^int debug_display_inodetable()$/
+debug_display_list	debug.c	/^int debug_display_list()$/
+debug_display_location	debug.c	/^int debug_display_location(int loc)$/
+debug_display_mem	debug.c	/^int debug_display_mem(int page)$/
+debug_display_mem_range	debug.c	/^int debug_display_mem_range(int page_l, int page_h/
+debug_display_memlist	debug.c	/^int debug_display_memlist()$/
+debug_display_page	debug.c	/^int debug_display_page(int ip)$/
+debug_display_pcb	debug.c	/^int debug_display_pcb()$/
+debug_display_pcb_pid	debug.c	/^int debug_display_pcb_pid(int pid)$/
+debug_display_pt_at	debug.c	/^int debug_display_pt_at(int addr)$/
+debug_display_pt_pid	debug.c	/^int debug_display_pt_pid(int pid)$/
+debug_display_pt_ptbr	debug.c	/^int debug_display_pt_ptbr()$/
+debug_display_range_reg	debug.c	/^int debug_display_range_reg(const char *reg_b_name/
+debug_display_register	debug.c	/^int debug_display_register(const char *regname)$/
+debug_display_rf	debug.c	/^int debug_display_rf()$/
+debug_display_rt	debug.c	/^int debug_display_rt()$/
+debug_display_sst	debug.c	/^int debug_display_sst()$/
+debug_display_st	debug.c	/^int debug_display_st()$/
+debug_display_tst	debug.c	/^int debug_display_tst()$/
+debug_display_usertable	debug.c	/^int debug_display_usertable()$/
+debug_display_val	debug.c	/^int debug_display_val(char *mem)$/
+debug_dmt_pid	debug.c	/^int debug_dmt_pid(int pid)$/
+debug_init	debug.c	/^int debug_init()$/
+debug_invalid_cmd	debug.c	/^void debug_invalid_cmd(const char *cmd)$/
+debug_next_step	debug.c	/^int debug_next_step(int curr_ip)$/
+debug_rt_pid	debug.c	/^int debug_rt_pid(int pid)$/
+debug_show_interface	debug.c	/^int debug_show_interface()$/
+debug_skip_n	debug.c	/^int debug_skip_n(int num, int debug_command)$/
+debug_status	debug.h	94
+debug_watch_add	debug.c	/^int debug_watch_add(int loc)$/
+debug_watch_clear	debug.c	/^void debug_watch_clear()$/
+debug_watch_test	debug.c	/^int debug_watch_test(int mem_left, int mem_right)$/
+default	Makefile	/^default: xsm$/
+dest_page	machine.h	83
+disk	machine.h	114
+disk.o	Makefile	/^disk.o: disk.c disk.h$/
+disk_close	disk.c	/^int disk_close()$/
+disk_get_block	disk.c	/^xsm_word *disk_get_block(int block)$/
+disk_init	disk.c	/^int disk_init(const char *filename)$/
+disk_op	machine.h	103
+disk_operation	machine.h	85
+disk_read_block	disk.c	/^int disk_read_block(xsm_word *page, int block_num)/
+disk_state	machine.h	98
+disk_wait	machine.h	98
+disk_write_page	disk.c	/^int disk_write_page(xsm_word *page, int block_num)/
+epn	exception.h	18
+exception.o	Makefile	/^exception.o: exception.c exception.h$/
+exception_code	exception.c	/^int exception_code()$/
+exception_get_epn	exception.c	/^int exception_get_epn()$/
+exception_get_ma	exception.c	/^int exception_get_ma()$/
+exception_message	exception.c	/^char *exception_message()$/
+exception_set	exception.c	/^int exception_set(char *message, int type, int mod/
+exception_set_epn	exception.c	/^void exception_set_epn(int page)$/
+exception_set_ma	exception.c	/^void exception_set_ma(int address)$/
+fQX	lex.yy.o	48
+flex_int16_t	lex.yy.c	45
+flex_int16_t	lex.yy.c	51
+flex_int32_t	lex.yy.c	47
+flex_int32_t	lex.yy.c	52
+flex_int8_t	lex.yy.c	43
+flex_int8_t	lex.yy.c	50
+flex_uint16_t	lex.yy.c	46
+flex_uint16_t	lex.yy.c	54
+flex_uint32_t	lex.yy.c	48
+flex_uint32_t	lex.yy.c	55
+flex_uint8_t	lex.yy.c	44
+flex_uint8_t	lex.yy.c	53
+h_exp_point	machine.h	107
+instructions	machine.c	15
+ip	debug.h	87
+lex.yy.c	Makefile	/^lex.yy.c: parse.l$/
+lex.yy.o	Makefile	/^lex.yy.o: lex.yy.c$/
+lexer_buffer_reset	parse.l	/^   void lexer_buffer_reset ()$/
+ma	exception.h	17
+machine.o	Makefile	/^machine.o: machine.c machine.h$/
+machine_destroy	machine.c	/^void machine_destroy()$/
+machine_execute_arith	machine.c	/^int machine_execute_arith(int opcode)$/
+machine_execute_backup	machine.c	/^int machine_execute_backup()$/
+machine_execute_brkp	machine.c	/^int machine_execute_brkp()$/
+machine_execute_call	machine.c	/^int machine_execute_call()$/
+machine_execute_call_do	machine.c	/^int machine_execute_call_do(int target)$/
+machine_execute_disk	machine.c	/^int machine_execute_disk(int operation, int immedi/
+machine_execute_encrypt	machine.c	/^int machine_execute_encrypt()$/
+machine_execute_in_do	machine.c	/^int machine_execute_in_do(xsm_word *word)$/
+machine_execute_ini	machine.c	/^int machine_execute_ini()$/
+machine_execute_instruction	machine.c	/^int machine_execute_instruction(int opcode)$/
+machine_execute_interrupt	machine.c	/^int machine_execute_interrupt()$/
+machine_execute_interrupt_do	machine.c	/^int machine_execute_interrupt_do(int interrupt)$/
+machine_execute_iret	machine.c	/^int machine_execute_iret()$/
+machine_execute_jump	machine.c	/^int machine_execute_jump(int opcode)$/
+machine_execute_load_do	machine.c	/^int machine_execute_load_do(int page_num, int bloc/
+machine_execute_logical	machine.c	/^int machine_execute_logical(int opcode)$/
+machine_execute_mov	machine.c	/^int machine_execute_mov()$/
+machine_execute_print	machine.c	/^int machine_execute_print()$/
+machine_execute_print_do	machine.c	/^int machine_execute_print_do(xsm_word *word)$/
+machine_execute_restore	machine.c	/^int machine_execute_restore()$/
+machine_execute_ret	machine.c	/^int machine_execute_ret()$/
+machine_execute_stack	machine.c	/^int machine_execute_stack(int opcode)$/
+machine_execute_store_do	machine.c	/^int machine_execute_store_do(int page_num, int blo/
+machine_execute_unary	machine.c	/^int machine_execute_unary(int opcode)$/
+machine_get_address	machine.c	/^xsm_word *machine_get_address(int write)$/
+machine_get_address_int	machine.c	/^int machine_get_address_int(int write)$/
+machine_get_ipreg	machine.c	/^xsm_word *machine_get_ipreg()$/
+machine_get_mem_access	machine.c	/^void machine_get_mem_access(int *mem_left, int *me/
+machine_get_mode	machine.c	/^int machine_get_mode()$/
+machine_get_opcode	machine.c	/^int machine_get_opcode(const char *instr)$/
+machine_get_register	machine.c	/^xsm_word *machine_get_register(const char *name)$/
+machine_get_spreg	machine.c	/^xsm_word *machine_get_spreg()$/
+machine_handle_exception	machine.c	/^int machine_handle_exception()$/
+machine_init	machine.c	/^int machine_init(xsm_options *options)$/
+machine_instr_req_privilege	machine.c	/^int machine_instr_req_privilege(int opcode)$/
+machine_interrupt_address	machine.c	/^int machine_interrupt_address(int int_num)$/
+machine_memory_get_word	machine.c	/^xsm_word *machine_memory_get_word(int address)$/
+machine_pop_do	machine.c	/^int machine_pop_do(xsm_word *dest)$/
+machine_post_execute	machine.c	/^void machine_post_execute()$/
+machine_pre_execute	machine.c	/^void machine_pre_execute(int ip_val)$/
+machine_push_do	machine.c	/^int machine_push_do(xsm_word *reg)$/
+machine_read_disk_arg	machine.c	/^int machine_read_disk_arg()$/
+machine_register_exception	machine.c	/^void machine_register_exception(char *message, int/
+machine_run	machine.c	/^int machine_run()$/
+machine_schedule_disk	machine.c	/^int machine_schedule_disk(int page_num, int block_/
+machine_schedule_in	machine.c	/^int machine_schedule_in(int firetime)$/
+machine_serve_instruction	machine.c	/^int machine_serve_instruction(char *buffer, unsign/
+machine_set_mode	machine.c	/^void machine_set_mode(int mode)$/
+machine_stack_pointer	machine.c	/^xsm_word *machine_stack_pointer(int write)$/
+machine_translate_address	machine.c	/^int machine_translate_address(int address, int wri/
+main.o	Makefile	/^main.o: main.c$/
+mem_left	machine.h	101
+mem_right	machine.h	101
+memory.o	Makefile	/^memory.o: memory.c memory.h$/
+memory_addr_page	memory.c	/^int memory_addr_page(int address)$/
+memory_destroy	memory.c	/^void memory_destroy()$/
+memory_get_page	memory.c	/^xsm_word *memory_get_page(int page)$/
+memory_get_word	memory.c	/^xsm_word *memory_get_word(int address)$/
+memory_init	memory.c	/^int memory_init()$/
+memory_is_address_valid	memory.c	/^int memory_is_address_valid(int address)$/
+memory_retrieve_raw_instr	memory.c	/^void memory_retrieve_raw_instr(char *dest, int add/
+memory_translate_address	memory.c	/^int memory_translate_address(int ptbr, int ptlr, i/
+memory_translate_page	memory.c	/^int memory_translate_page(int ptbr, int ptlr, int /
+message	exception.h	14
+mode	exception.h	16
+mode	machine.h	97
+operation	machine.h	84
+operation	machine.h	90
+prev_ip	debug.h	87
+prev_mode	debug.h	88
+registers.o	Makefile	/^registers.o: registers.c registers.h$/
+registers_destroy	registers.c	/^void registers_destroy()$/
+registers_get_integer	registers.c	/^int registers_get_integer(const char *name)$/
+registers_get_register	registers.c	/^xsm_reg *registers_get_register(const char *name)$/
+registers_get_register_code	registers.c	/^int registers_get_register_code(const char *name)$/
+registers_get_string	registers.c	/^char *registers_get_string(const char *name)$/
+registers_init	registers.c	/^int registers_init()$/
+registers_len	registers.c	/^int registers_len()$/
+registers_names	registers.c	/^const char **registers_names()$/
+registers_store_integer	registers.c	/^int registers_store_integer(const char *name, int /
+registers_store_string	registers.c	/^int registers_store_string(const char *name, char /
+registers_umode	registers.c	/^int registers_umode(const char *reg)$/
+regs	machine.h	95
+simulator.o	Makefile	/^simulator.o: simulator.c simulator.h$/
+simulator_parse_args	simulator.c	/^int simulator_parse_args(int argc, char **argv)$/
+simulator_run	simulator.c	/^int simulator_run()$/
+skip	debug.h	89
+skip_command	debug.h	90
+src_block	machine.h	82
+state	debug.h	86
+str	lexer.h	15
+t6	machine.o	6
+timer	machine.h	96
+timer	machine.h	112
+tokenize.o	Makefile	/^tokenize.o: tokenize.c tokenize.h$/
+tokenize_clear_stream	tokenize.c	/^void tokenize_clear_stream()$/
+tokenize_close	tokenize.c	/^int tokenize_close()$/
+tokenize_init	tokenize.c	/^int tokenize_init()$/
+tokenize_next_token	tokenize.c	/^int tokenize_next_token(YYSTYPE *token_info)$/
+tokenize_peek	tokenize.c	/^int tokenize_peek(YYSTYPE *token_info)$/
+tokenize_reset	tokenize.c	/^void tokenize_reset()$/
+tokenize_skip_token	tokenize.c	/^int tokenize_skip_token()$/
+type	exception.h	15
+unput	lex.yy.c	/^#define unput(c) yyunput( c, (yytext_ptr)  )$/
+val	lexer.h	14
+val	types.h	12
+word	machine.h	89
+word.o	Makefile	/^word.o: word.c word.h$/
+word_copy	word.c	/^void word_copy(xsm_word *dest, xsm_word *src)$/
+word_encrypt	word.c	/^void word_encrypt(xsm_word *word)$/
+word_get_integer	word.c	/^int word_get_integer(xsm_word *word)$/
+word_get_string	word.c	/^char *word_get_string(xsm_word *word)$/
+word_get_unix_type	word.c	/^int word_get_unix_type(xsm_word *word)$/
+word_store_integer	word.c	/^int word_store_integer(xsm_word *word, int integer/
+word_store_string	word.c	/^int word_store_string(xsm_word *word, const char */
+wp	debug.h	91
+wp_size	debug.h	92
+xsm	Makefile	/^xsm: lex.yy.o machine.o main.o simulator.o word.o /
+xsm_cpu	debug.h	82
+xsm_cpu	machine.h	108
+xsm_exception	exception.h	19
+xsm_options	machine.h	116
+xsm_reg	registers.h	53
+xsm_word	types.h	13
+yy_accept	lex.yy.c	362
+yy_at_bol	lex.yy.c	219
+yy_base	lex.yy.c	409
+yy_bs_column	lex.yy.c	222
+yy_bs_lineno	lex.yy.c	221
+yy_buf_pos	lex.yy.c	190
+yy_buf_size	lex.yy.c	195
+yy_buffer_stack	lex.yy.c	251
+yy_buffer_stack_max	lex.yy.c	250
+yy_buffer_stack_top	lex.yy.c	249
+yy_buffer_state	lex.yy.c	185
+yy_buffer_status	lex.yy.c	229
+yy_c_buf_p	lex.yy.c	273
+yy_ch_buf	lex.yy.c	189
+yy_chk	lex.yy.c	437
+yy_create_buffer	lex.yy.c	/^    YY_BUFFER_STATE yy_create_buffer  (FILE * file/
+yy_def	lex.yy.c	417
+yy_delete_buffer	lex.yy.c	/^    void yy_delete_buffer (YY_BUFFER_STATE  b )$/
+yy_did_buffer_switch_on_eof	lex.yy.c	280
+yy_ec	lex.yy.c	370
+yy_fatal_error	lex.yy.c	/^static void yynoreturn yy_fatal_error (const char*/
+yy_fill_buffer	lex.yy.c	227
+yy_flex_debug	lex.yy.c	453
+yy_flex_strlen	lex.yy.c	/^static int yy_flex_strlen (const char * s )$/
+yy_flex_strncpy	lex.yy.c	/^static void yy_flex_strncpy (char* s1, const char /
+yy_flush_buffer	lex.yy.c	/^    void yy_flush_buffer (YY_BUFFER_STATE  b )$/
+yy_get_next_buffer	lex.yy.c	/^static int yy_get_next_buffer (void)$/
+yy_get_previous_state	lex.yy.c	/^    static yy_state_type yy_get_previous_state (vo/
+yy_hold_char	lex.yy.c	268
+yy_init	lex.yy.c	274
+yy_init_buffer	lex.yy.c	/^    static void yy_init_buffer  (YY_BUFFER_STATE  /
+yy_init_globals	lex.yy.c	/^static int yy_init_globals (void)$/
+yy_input_file	lex.yy.c	187
+yy_is_interactive	lex.yy.c	213
+yy_is_our_buffer	lex.yy.c	206
+yy_last_accepting_cpos	lex.yy.c	450
+yy_last_accepting_state	lex.yy.c	449
+yy_load_buffer_state	lex.yy.c	/^static void yy_load_buffer_state  (void)$/
+yy_meta	lex.yy.c	402
+yy_n_chars	lex.yy.c	200
+yy_n_chars	lex.yy.c	269
+yy_new_buffer	lex.yy.c	303
+yy_nxt	lex.yy.c	360
+yy_nxt	lex.yy.c	425
+yy_scan_buffer	lex.yy.c	/^YY_BUFFER_STATE yy_scan_buffer  (char * base, yy_s/
+yy_scan_bytes	lex.yy.c	/^YY_BUFFER_STATE yy_scan_bytes  (const char * yybyt/
+yy_scan_string	lex.yy.c	/^YY_BUFFER_STATE yy_scan_string (const char * yystr/
+yy_set_bol	lex.yy.c	/^#define yy_set_bol(at_bol) \\$/
+yy_set_interactive	lex.yy.c	/^#define yy_set_interactive(is_interactive) \\$/
+yy_size_t	lex.yy.c	154
+yy_start	lex.yy.c	275
+yy_state_type	lex.yy.c	328
+yy_switch_to_buffer	lex.yy.c	/^    void yy_switch_to_buffer  (YY_BUFFER_STATE  ne/
+yy_trans_info	lex.yy.c	357
+yy_try_NUL_trans	lex.yy.c	/^    static yy_state_type yy_try_NUL_trans  (yy_sta/
+yy_verify	lex.yy.c	359
+yyalloc	lex.yy.c	/^void *yyalloc (yy_size_t  size )$/
+yyconst	lex.yy.c	97
+yyensure_buffer_stack	lex.yy.c	/^static void yyensure_buffer_stack (void)$/
+yyfree	lex.yy.c	/^void yyfree (void * ptr )$/
+yyget_debug	lex.yy.c	/^int yyget_debug  (void)$/
+yyget_in	lex.yy.c	/^FILE *yyget_in  (void)$/
+yyget_leng	lex.yy.c	/^int yyget_leng  (void)$/
+yyget_lineno	lex.yy.c	/^int yyget_lineno  (void)$/
+yyget_out	lex.yy.c	/^FILE *yyget_out  (void)$/
+yyget_text	lex.yy.c	/^char *yyget_text  (void)$/
+yyin	lex.yy.c	326
+yyinput	lex.yy.c	/^    static int yyinput (void)$/
+yyleng	lex.yy.c	270
+yyless	lex.yy.c	/^#define yyless(n) \\$/
+yyless	lex.yy.c	1653
+yyless	lex.yy.c	/^#define yyless(n) \\$/
+yylex_destroy	lex.yy.c	/^int yylex_destroy  (void)$/
+yylineno	lex.yy.c	331
+yylval	parse.l	7
+yymore	lex.yy.c	/^#define yymore() yymore_used_but_not_detected$/
+yynoreturn	lex.yy.c	100
+yynoreturn	lex.yy.c	102
+yypop_buffer_state	lex.yy.c	/^void yypop_buffer_state (void)$/
+yypush_buffer_state	lex.yy.c	/^void yypush_buffer_state (YY_BUFFER_STATE new_buff/
+yyrealloc	lex.yy.c	/^void *yyrealloc  (void * ptr, yy_size_t  size )$/
+yyrestart	lex.yy.c	/^    void yyrestart  (FILE * input_file )$/
+yyset_debug	lex.yy.c	/^void yyset_debug (int  _bdebug )$/
+yyset_in	lex.yy.c	/^void yyset_in (FILE *  _in_str )$/
+yyset_lineno	lex.yy.c	/^void yyset_lineno (int  _line_number )$/
+yyset_out	lex.yy.c	/^void yyset_out (FILE *  _out_str )$/
+yyterminate	lex.yy.c	/^#define yyterminate() return YY_NULL$/
+yytext	lex.yy.c	462
+yytext_ptr	lex.yy.c	335
+yytext_ptr	lex.yy.c	337
+yyunput	lex.yy.c	/^    static void yyunput (int c, char * yy_bp )$/

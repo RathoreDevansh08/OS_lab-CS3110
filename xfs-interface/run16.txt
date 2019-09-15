@@ -1,0 +1,14 @@
+load --library ../expl/library.lib
+load --os ../codes/stage16/os_start.xsm
+load --int=10 ../codes/stage16/int10.xsm
+load --int=7 ../codes/stage16/int7.xsm
+load --int=6 ../codes/stage16/int6.xsm
+load --idle ../codes/stage16/idle.xsm
+load --init ../codes/stage16/gcdinit.xsm
+load --int=timer ../codes/stage16/timer16.xsm
+load --int=console ../codes/stage16/console.xsm
+load --exhandler ../spl/spl_progs/haltprog.xsm
+load --module 7 ../codes/stage16/boot.xsm
+load --module 5 ../codes/stage16/scheduler.xsm
+load --module 0 ../codes/stage16/module0.xsm
+load --module 4 ../codes/stage16/mod4.xsm

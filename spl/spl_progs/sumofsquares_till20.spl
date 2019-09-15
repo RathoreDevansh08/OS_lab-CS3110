@@ -1,0 +1,11 @@
+alias num R0;
+alias sum R1;
+alias sq R2;
+num=1;
+sum=0;
+while(num<=20) do
+	sq=num*num;
+	sum=sum+sq;
+	num=num+1;
+endwhile;
+print sum;

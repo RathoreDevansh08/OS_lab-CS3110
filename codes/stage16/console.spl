@@ -1,0 +1,28 @@
+// The console interrupt handler is entered while some other process is executing in the user mode. The handler must switch to the kernel stack of that process, do the interrupt handling, restore the user stack of the process that was running and return control back to the process
+
+// Store the SP value in the UPTR & then Switch to kernel stack
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13] = SP;
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
+
+backup;
+
+alias reqPID R0;
+reqPID = [TERMINAL_STATUS_TABLE + 1];
+
+[PROCESS_TABLE + reqPID * 16 + 8] = P0;
+
+R1 = 9;
+multipush(R0, R1, R2);
+
+R2 = reqPID;
+
+call MOD_0; // Call resource manager module.
+
+multipop(R0, R1, R2);  //restore the registers pushed before
+
+restore;    //Restore the user context from the kernel stack
+
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13];
+
+//Return control to the newly scheduled process
+ireturn;
