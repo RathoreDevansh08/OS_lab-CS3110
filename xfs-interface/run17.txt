@@ -1,0 +1,18 @@
+load --library ../expl/library.lib
+load --exhandler ../spl/spl_progs/haltprog.xsm
+load --os ../codes/stage17/os_start.xsm
+load --int=6 ../codes/stage17/int6.xsm
+load --int=7 ../codes/stage17/int7.xsm
+load --int=9 ../codes/stage17/int9.xsm
+load --int=10 ../codes/stage17/int10.xsm
+load --idle ../codes/stage17/idle.xsm
+load --init ../codes/stage17/init.xsm
+load --int=timer ../codes/stage17/timer17.xsm
+load --int=console ../codes/stage17/console.xsm
+load --module 0 ../codes/stage17/mod0.xsm
+load --module 1 ../codes/stage17/mod1.xsm
+load --module 2 ../codes/stage17/mod2.xsm
+load --module 4 ../codes/stage17/mod4.xsm
+load --module 5 ../codes/stage17/scheduler.xsm
+load --module 7 ../codes/stage17/boot.xsm
+load --exec ../codes/stage17/odd.xsm
