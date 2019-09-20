@@ -1,0 +1,67 @@
+//Resource Manager Module
+
+alias funcNum R1;
+alias currPID R2;
+
+if (funcNum == 3) then
+    
+    while([DISK_STATUS_TABLE] == 1) do
+
+//While the disk is busy (STATUS field in the Disk Status Table is 1), set the state of the process to WAIT_DISK and invoke the scheduler
+
+        [PROCESS_TABLE + 16 * currPID + 4] = WAIT_DISK;
+        multipush(R0, R1, R2);
+        call MOD_5;
+        multipop(R0, R1, R2);
+
+    endwhile;
+
+//When the disk is finally free, the process is woken up by the disk interrupt handler    
+
+//Lock the disk by setting the STATUS and the PID fields in the Disk Status Table to 1 and PID 
+    [DISK_STATUS_TABLE] = 1;
+    [DISK_STATUS_TABLE + 4] = currPID;
+    return;
+
+endif;
+
+
+if(funcNum == 8) then
+    while([TERMINAL_STATUS_TABLE] == 1) do                          // wait in loop, Until the terminal is released
+
+        [PROCESS_TABLE + 16 * currPID + 4] = WAIT_TERMINAL;      
+        multipush(R1, R2);                                          
+        call SCHEDULER;                                             
+        multipop(R1, R2);                                           
+    endwhile;
+
+    [TERMINAL_STATUS_TABLE] = 1;
+    [TERMINAL_STATUS_TABLE + 1] = currPID;
+    return;
+endif;
+
+
+if(funcNum == 9) then
+    if(currPID != [TERMINAL_STATUS_TABLE + 1]) then              // If the process which has not acquired the 
+        R0 = -1;                                                    // terminal is trying to release it then return -1
+        return;
+    endif;
+
+    [TERMINAL_STATUS_TABLE] = 0;                                    // Terminal released
+
+    alias i R3;
+    i = 1;
+    while(i < 16) do
+        if([PROCESS_TABLE + 16 * i + 4] == WAIT_TERMINAL) then      // Make the processes waiting for terminal to ready state
+            [PROCESS_TABLE + 16 * i + 4] = READY;
+        endif;
+        
+        i = i + 1;
+    endwhile;
+
+    R0 = 0;                                                         // return value -> success
+    return;
+endif;
+
+R0 = -1;                                                            // Function number is other than 8 or 9
+return;
