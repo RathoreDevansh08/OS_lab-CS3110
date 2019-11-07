@@ -1,0 +1,78 @@
+alias userSP R0;
+alias syscall R1;
+
+[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
+userSP = SP;
+SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+
+syscall = [[PTBR + 2 * ((userSP - 5) / 512)] * 512 + (userSP - 5) % 512];
+
+//Semlock system call
+if (syscall == 19) then
+	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 19;
+	alias semid R2;
+	alias page R3;
+	alias locksemid R5;
+	page = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 + 512;
+	semid = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	
+//If Semaphore descriptor is not valid or the entry in the Per Process Resource Table is not valid, return -1
+	if ((semid < 0) || (semid > 7) || ([page - 16 + 2 * semid] != SEMAPHORE)) then
+		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -1;
+	else
+		locksemid = [page - 16 + 2 * semid + 1];
+		while (([SEMAPHORE_TABLE + 4 * locksemid] != -1) && ([SEMAPHORE_TABLE + 4 * locksemid] != [SYSTEM_STATUS_TABLE + 1])) do
+		
+//Change the state of the current process to (WAIT_SEMAPHORE, Semaphore table index of the locked semaphore)
+			[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = WAIT_SEMAPHORE;
+			[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 5] = locksemid;  
+			multipush(R0, R1, R2, R3, R5);
+			call MOD_5;
+			multipop(R0, R1, R2, R3, R5);
+		endwhile;
+		[SEMAPHORE_TABLE + 4 * [page - 16 + 2 * semid + 1]] = [SYSTEM_STATUS_TABLE + 1]; //updating to currentpid
+		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = 0;              //return 0
+	endif;
+	breakpoint;
+endif;
+
+//SemUnlock system call
+if (syscall == 20) then
+	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 20;
+	alias semid R2;
+	alias page R4;
+	alias locksemid R5;
+	
+	page = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 + 512;
+	semid = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	
+//If Semaphore descriptor is not valid or the entry in the Per Process Resource Table is not valid, return -1
+	if ((semid < 0) || (semid > 7) || ([page - 16 + 2 * semid] != SEMAPHORE)) then
+		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -1;
+	else
+		locksemid = [page - 16 + 2 * semid + 1];
+		if ([SEMAPHORE_TABLE + 4 * locksemid] != -1) then
+			if ([SEMAPHORE_TABLE + 4 * locksemid] != [SYSTEM_STATUS_TABLE + 1]) then
+			//The semaphore is locked by some other process
+				[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -2;
+			else
+				[SEMAPHORE_TABLE + 4 * locksemid] = -1;  //unlock the semaphore
+				alias entry R3;
+				entry = 1;
+				while (entry < 16) do
+					if (([PROCESS_TABLE + entry * 16 + 4] == WAIT_SEMAPHORE) && ([PROCESS_TABLE + entry * 16 + 5] == locksemid)) then
+						[PROCESS_TABLE + entry * 16 + 4] = READY;
+					endif;
+					entry = entry + 1;
+				endwhile;
+				[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = 0;
+			endif;
+		else
+			[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = 0;
+		endif;
+	endif;
+endif;
+
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
+ireturn;

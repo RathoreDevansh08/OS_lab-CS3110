@@ -1,0 +1,54 @@
+type
+  LList
+  {
+    int data;
+    LList next;
+  }
+endtype
+
+decl
+    LList head;
+enddecl
+
+int main()
+{
+  decl
+    int len, x, temp;
+    LList p, q;
+  enddecl
+
+  begin
+    temp = exposcall ("Read", -1, len);
+    x = initialize();
+    head=null;
+    //read(len); 
+
+    q=head;
+    while (len!=0)  do
+      read(x);
+      p=alloc();
+      p.data=x;
+      p.next=null;
+
+      if (head==null) then
+      head=p;
+      q=p;
+      else
+      q.next=p;
+      q=q.next;
+      endif;
+      
+      len=len-1;
+    endwhile;
+
+    p=head;
+    while(p!=null)  do
+      write(p.data);
+      p=p.next;
+    endwhile;
+
+    return 1;
+  end
+}
+
+

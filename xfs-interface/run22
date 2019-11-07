@@ -1,0 +1,26 @@
+load --library ../expl/library.lib
+load --exhandler ../spl/spl_progs/except.xsm
+load --os ../codes/stage22/os_start.xsm
+load --idle ../codes/stage22/idle.xsm
+load --init ../codes/stage22/init.xsm
+load --int=6 ../codes/stage22/int6.xsm
+load --int=7 ../codes/stage22/int7.xsm
+load --int=8 ../codes/stage22/int8.xsm
+load --int=9 ../codes/stage22/int9.xsm
+load --int=10 ../codes/stage22/int10.xsm
+load --int=11 ../codes/stage22/int11.xsm
+load --int=13 ../codes/stage22/int13.xsm
+load --int=14 ../codes/stage22/int14.xsm
+load --int=15 ../codes/stage22/int15.xsm
+load --int=timer ../codes/stage22/timer.xsm
+load --int=console ../codes/stage22/console.xsm
+load --int=disk ../codes/stage22/disk_int.xsm
+load --module 0 ../codes/stage22/mod0.xsm
+load --module 1 ../codes/stage22/mod1.xsm
+load --module 2 ../codes/stage22/mod2.xsm
+load --module 4 ../codes/stage22/mod4.xsm
+load --module 5 ../codes/stage22/scheduler.xsm
+load --module 7 ../codes/stage22/boot.xsm
+load --exec ../codes/stage22/even.xsm
+load --exec ../codes/stage22/odd.xsm
+load --exec ../codes/stage22/rw.xsm
