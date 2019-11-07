@@ -1,3 +1,4 @@
+fdisk
 load --library ../expl/library.lib
 load --exhandler ../spl/spl_progs/except.xsm
 load --os ../codes/stage22/os_start.xsm
