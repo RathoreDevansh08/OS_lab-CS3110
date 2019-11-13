@@ -1,0 +1,148 @@
+alias userSP R0;
+alias syscall R1;
+[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
+userSP = SP;
+SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+syscall = [[PTBR + 2 * ((userSP - 5) / 512)] * 512 + (userSP - 5) % 512];
+alias ret R9;
+ret = [PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512;
+// open system call
+if (syscall == 2) then
+	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 2;
+	alias page R2;
+	page = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 + 512;
+	alias entry R3;
+	alias file R4;
+	file = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	entry = 0;
+	while (entry < 8) do
+		if ([page - 2 * entry - 2] == -1) then
+			break;
+		endif;
+		entry = entry + 1;
+	endwhile;	
+
+	if (entry == 8) then
+		[ret] = -3;
+	else
+		alias res R5;
+		multipush(R0, R1, R2, R3, R4, R9);
+		R1 = 3;
+		R2 = file;
+		call MOD_3;
+		res = R0;
+		multipop(R0, R1, R2, R3, R4, R9);
+		if (res >= 0) then
+			[ret] = 8 - entry - 1;
+			[page - 2 * entry - 2] = FILE;
+			[page - 2 * entry - 1] = res;
+		else
+			[ret] = res;
+		endif;
+	endif;
+endif;
+
+// close system call
+if (syscall == 3) then
+	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 3;
+	alias page R2;
+	page = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 + 512;
+	alias fd R3;
+	alias index R4;
+	fd = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	if ((fd < 0) || (fd > 7) || ([page - 16 + 2 * fd] != FILE)) then
+		[ret] = -1;
+	else
+		index = [page - 16 + 2 * fd + 1];
+		multipush(R0, R1, R2, R3, R4, R9);
+		R1 = 4;
+		R2 = index;
+		call MOD_3;
+		multipop(R0, R1, R2, R3, R4, R9);
+		[page - 16 + 2 * fd] = -1;
+		[ret] = 0;
+	endif;
+
+endif;
+
+// seek system call
+if (syscall == 6) then
+	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 6;
+	alias page R2;
+	page = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 + 512;
+	alias fd R3;
+	alias index R4;
+	fd = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	if ((fd < 0) || (fd > 7) || ([page - 16 + 2 * fd] != FILE)) then
+		[ret] = -1;
+	else
+		index = [page - 16 + 2 * fd + 1];
+		alias inode R5;
+		inode = [OPEN_FILE_TABLE + 4 * index];
+		
+		// acquire inode
+		multipush(R0, R1, R2, R3, R4, R5, R9);
+		R1 = 4;
+		R2 = inode;
+		R3 = [SYSTEM_STATUS_TABLE + 1];
+		call MOD_0;
+		R6 = R0;
+		multipop(R0, R1, R2, R3, R4, R5, R9);
+		if (R6 < 0) then
+			[ret] = -1;
+			[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+			SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
+			ireturn;
+		endif;
+
+		alias lseek R6;
+		alias offset R7;
+		offset = [[PTBR + 2 * ((userSP - 3) / 512)] * 512 + (userSP - 3) % 512];
+		lseek = [OPEN_FILE_TABLE + 4 * index + 2];
+		
+		alias size R8;
+		if (inode == INODE_ROOT) then
+			size = 480;
+		else
+			size = [INODE_TABLE + 16 * inode + 2];
+		endif;
+
+		if (offset == 0) then
+			[OPEN_FILE_TABLE + 4 * index + 2] = 0;
+		else
+			if (lseek + offset < 0) then
+		
+				// release inode
+				multipush(R0, R9);
+				R1 = 5;
+				R2 = inode;
+				R3 = [SYSTEM_STATUS_TABLE + 1];
+				call MOD_0;
+				multipop(R0, R9);
+				[ret] = 0;
+				[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -2;
+				[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+				SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
+				ireturn;
+			endif;
+			if (lseek + offset > size) then
+				[OPEN_FILE_TABLE + 4 * index + 2] = size;
+			else
+				[OPEN_FILE_TABLE + 4 * index + 2] = lseek + offset;
+			endif;
+		endif;
+
+		// release inode
+		multipush(R0, R9);
+		R1 = 5;
+		R2 = inode;
+		R3 = [SYSTEM_STATUS_TABLE + 1];
+		call MOD_0;
+		multipop(R0, R9);
+		[ret] = 0;
+	endif;
+endif;
+
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+SP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
+ireturn;

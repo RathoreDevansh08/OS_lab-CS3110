@@ -1,0 +1,28 @@
+fdisk
+load --library ../expl/library.lib
+load --exhandler ../spl/spl_progs/except.xsm
+load --os ../codes/stage25/os_start.xsm
+load --idle ../codes/stage25/idle.xsm
+load --init ../codes/stage25/init.xsm
+load --int=4 ../codes/stage25/int4.xsm
+load --int=5 ../codes/stage25/int5.xsm
+load --int=6 ../codes/stage25/int6.xsm
+load --int=7 ../codes/stage25/int7.xsm
+load --int=8 ../codes/stage25/int8.xsm
+load --int=9 ../codes/stage25/int9.xsm
+load --int=10 ../codes/stage25/int10.xsm
+load --int=11 ../codes/stage25/int11.xsm
+load --int=13 ../codes/stage25/int13.xsm
+load --int=14 ../codes/stage25/int14.xsm
+load --int=15 ../codes/stage25/int15.xsm
+load --int=timer ../codes/stage25/timer.xsm
+load --int=console ../codes/stage25/console.xsm
+load --int=disk ../codes/stage25/disk_int.xsm
+load --module 0 ../codes/stage25/mod0.xsm
+load --module 1 ../codes/stage25/mod1.xsm
+load --module 2 ../codes/stage25/mod2.xsm
+load --module 4 ../codes/stage25/mod4.xsm
+load --module 5 ../codes/stage25/scheduler.xsm
+load --module 7 ../codes/stage25/boot.xsm
+load --exec ../codes/stage25/create.xsm
+load --exec ../codes/stage25/delete.xsm
