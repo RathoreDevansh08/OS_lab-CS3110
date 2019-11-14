@@ -1,31 +1,35 @@
 //Resource Manager Module
 
-alias funcNum R1;
+alias func R1;
 alias currPID R2;
 
-// Acquire Buffer
-if (funcNum == 1)
+
+//Acquire Buffer
+if (func == 1)
 then
-	
 	alias buffer R2;
 	alias pid R3;
+	
 	while ([BUFFER_TABLE + 4 * buffer + 2] != -1) do
 		[PROCESS_TABLE + 16 * pid + 4] = WAIT_BUFFER;
 		[PROCESS_TABLE + 16 * pid + 5] = buffer;
+		
 		multipush(R1, R2, R3);
 		call MOD_5;
 		multipop(R1, R2, R3);
 	endwhile;
+	
 	[BUFFER_TABLE + 4 * buffer + 2] = pid;
 	return;
 endif;
 
-// Release Buffer
-if (funcNum == 2)
+
+//Release Buffer
+if(func == 2)
 then
-	
 	alias buffer R2;
 	alias pid R3;
+	
 	if ([BUFFER_TABLE + 4 * buffer + 2] != pid) then
 		R0 = -1;
 		return;
@@ -38,16 +42,16 @@ then
 		if (([PROCESS_TABLE + entry * 16 + 4] == WAIT_BUFFER) && ([PROCESS_TABLE + entry * 16 + 5] == buffer)) then
 			[PROCESS_TABLE + entry * 16 + 4] = READY;
 		endif;
-		entry = entry + 1;
+			entry = entry + 1;
 	endwhile;
 	R0 = 0;
 	return;
 endif;
 
-// Acquire Disk
-if (funcNum == 3)
+
+//Acquire Disk
+if (func == 3)
 then
-	//breakpoint;
 	alias status R3;
 	status = [DISK_STATUS_TABLE];
 	while (status == 1)
@@ -58,13 +62,15 @@ then
 		multipop(R1, R2, R3);
 		status = [DISK_STATUS_TABLE];
 	endwhile;
+	
 	[DISK_STATUS_TABLE] = 1;
 	[DISK_STATUS_TABLE + 4] = currPID;
 	return;
 endif;
 
-// Acquire Terminal
-if (funcNum == 8)
+
+//Acquire Terminal
+if(func == 8)
 then
 	//breakpoint;
 	alias status R4;
@@ -83,8 +89,9 @@ then
 	return;
 endif;
 
+
 // Release Terminal
-if (funcNum == 9)
+if (func == 9)
 then
 	//breakpoint;
 	alias pid R3;
@@ -110,8 +117,9 @@ then
 	//breakpoint;
 endif;
 
+
 // Acquire Semaphore
-if (funcNum == 6)
+if (func == 6)
 then
 	alias entry R3;
 	entry = 0;
@@ -130,7 +138,7 @@ then
 endif;
 
 // Release Semaphore
-if (funcNum == 7)
+if (func == 7)
 then
 	alias semid R4;
 	semid = currPID;
@@ -149,8 +157,9 @@ then
 	[SEMAPHORE_TABLE + 4 * semid + 1] = [SEMAPHORE_TABLE + 4 * semid + 1] - 1;
 endif;
 
-// acquire inode
-if (funcNum == 4)
+
+//Acquire inode
+if (func == 4)
 then
 	alias index R2;
 	alias pid R3;
@@ -171,8 +180,9 @@ then
 	R0 = 0;
 endif;
 
-// release inode
-if (funcNum == 5)
+
+//Release inode
+if (func == 5)
 then
 	alias index R2;
 	alias pid R3;

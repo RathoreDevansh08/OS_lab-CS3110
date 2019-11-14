@@ -1,33 +1,23 @@
-breakpoint;
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13] = SP;             // Save user stack pointer
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;   // and switch to kernel stack
 
-//Switch to the kernel stack and back up the register context
-[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13] = SP;
-SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
+backup;                             // Backup user context
 
-backup;
+[DISK_STATUS_TABLE + 0] = 0;        // Disk is no longer busy
 
+alias i R1;
+i = 0;
 
-//Set the STATUS field in the Disk Status table to 0 indicating that disk is no longer busy
-[DISK_STATUS_TABLE] = 0;
+while(i < MAX_PROC_NUM) do          // Set the states of all the processes waiting for disk to READY
 
-//Go through all the process table entries, and change the state of the process to READY, which is in WAIT_DISK state
-
-alias it R4;
-it = 1;
-while(it < MAX_PROC_NUM) do
-    alias state R5;
-    if(([PROCESS_TABLE + 16 * it + 1] == it) && ([PROCESS_TABLE + 16 * it + 4] == WAIT_DISK)) then
-        [PROCESS_TABLE + 16 * it + 4] = READY;
+    if([PROCESS_TABLE + i * 16 + 4] == WAIT_DISK) then
+        [PROCESS_TABLE + i * 16 + 4] = READY;
     endif;
-    it = it + 1;
+    
+    i = i + 1;
 endwhile;
 
+restore;                            // Restore user context
 
-//Restore the register context and return to user mode using the ireturn statement
-restore;
-
-SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13];
-[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
-
-breakpoint;
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13];             // Switch back to user stack
 ireturn;

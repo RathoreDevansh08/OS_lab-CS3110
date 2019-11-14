@@ -1,7 +1,9 @@
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 9] = -1;
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+
 backup;
+
 multipush(EIP);
 alias userSP R0;
 userSP = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13];
@@ -23,40 +25,42 @@ then
 		endif;
 		id = id + 1;
 	endwhile;
+	
 	halt;
-	//call MOD_5;
-	//return;
 endif;
 
-alias page_fault EPN;
+alias pgfault EPN;
 
-// code page fault
-if ((page_fault >= 4) && (page_fault < 8))
+//Code Page Fault
+if ((pgfault >= 4) && (pgfault < 8))
 then
 	alias pid R1;
 	alias block R2;
 	alias page R3;
+	
 	pid = [SYSTEM_STATUS_TABLE + 1];
-	block = [DISK_MAP_TABLE + pid * 10 + page_fault];
-	//breakpoint;
+	block = [DISK_MAP_TABLE + pid * 10 + pgfault];
+	
 	multipush(R0, R1, R2, EPN);
 	R1 = 5;
 	R2 = block;
-	//breakpoint;
+	//call to memory manager module
 	call MOD_2;
 	R3 = R0;
 	multipop(R0, R1, R2, EPN);
-	[PTBR + 2 * page_fault] = R3;
-	[PTBR + 2 * page_fault + 1] = "1100";
+	
+	[PTBR + 2 * pgfault] = R3;
+	[PTBR + 2 * pgfault + 1] = "1100";
 endif;
 
-// Heap page fault
-if ((page_fault >= 2) && (page_fault < 4))
+
+//Heap Page Fault
+if ((pgfault >= 2) && (pgfault < 4))
 then
 	alias page R1;
 	multipush(R0, EPN);
 	R1 = 1;
-	// memory module
+	//call to memory manager module
 	call MOD_2;
 	page = R0;
 	multipop(R0, EPN);
@@ -65,7 +69,7 @@ then
 
 	multipush(R0, EPN);
 	R1 = 1;
-	// memory module
+	//call to memory manager module
 	call MOD_2;
 	page = R0;
 	multipop(R0, EPN);
@@ -77,8 +81,11 @@ endif;
 [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 9] = 0;
 multipop(EIP);
 restore;
+
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 13];
 SP = SP + 1;
 R7 = [PTBR + 2 * (SP / 512)] * 512 + SP % 512;
 [[PTBR + 2 * (SP / 512)] * 512 + SP % 512] = EIP;
+
+//breakpoint;
 ireturn;

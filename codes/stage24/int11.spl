@@ -2,6 +2,7 @@ alias userSP R0;
 userSP = SP;
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+
 alias PhyPage R1;
 alias offset R2;
 alias SysCallAdd R3;
@@ -11,14 +12,14 @@ SysCallAdd = (PhyPage * 512) + offset;
 alias SysCall R4;
 SysCall = [SysCallAdd];
 
-// Getpid
+//Getpid
 if (SysCall == 11)
 then
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 11;
 	[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = [SYSTEM_STATUS_TABLE + 1];
 endif;
 
-// Getppid
+//Getppid
 if (SysCall == 12)
 then
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 12;
@@ -27,7 +28,7 @@ then
 	[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = ppid;
 endif;
 
-// Wait
+//Wait system call
 if (SysCall == 13)
 then
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 13;
@@ -54,7 +55,7 @@ then
 
 endif;
 
-// Signal
+//Signal
 if (SysCall == 14)
 then
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 14;

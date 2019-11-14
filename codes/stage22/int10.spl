@@ -1,14 +1,10 @@
-alias curPID R0;
-curPID = [SYSTEM_STATUS_TABLE + 1];
-alias process R3;
-process = PROCESS_TABLE + curPID * 16;
-[process + 4] = TERMINATED;
-curPID = 1;
-while (curPID < 10) do
-	process = PROCESS_TABLE + curPID * 16;
-	if ([process + 4] != TERMINATED) then
-		call MOD_5;
-	endif;
-	curPID = curPID + 1;
-endwhile;
-halt;
+// Exit System Call
+
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 10;
+//[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
+SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+
+R1 = 3;
+R2 = [SYSTEM_STATUS_TABLE + 1];
+call MOD_1;
+call MOD_5;

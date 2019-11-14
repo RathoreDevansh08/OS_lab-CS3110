@@ -1,6 +1,6 @@
 fdisk
 load --library ../expl/library.lib
-load --exhandler ../spl/spl_progs/except.xsm
+load --exhandler ../codes/stage24/except.xsm
 load --os ../codes/stage24/os_start.xsm
 load --idle ../codes/stage24/idle.xsm
 load --init ../codes/stage24/init.xsm
@@ -21,8 +21,12 @@ load --int=disk ../codes/stage24/disk_int.xsm
 load --module 0 ../codes/stage24/mod0.xsm
 load --module 1 ../codes/stage24/mod1.xsm
 load --module 2 ../codes/stage24/mod2.xsm
+load --module 3 ../codes/stage24/mod3.xsm
 load --module 4 ../codes/stage24/mod4.xsm
 load --module 5 ../codes/stage24/scheduler.xsm
 load --module 7 ../codes/stage24/boot.xsm
 load --exec ../codes/stage24/create.xsm
 load --exec ../codes/stage24/delete.xsm
+load --exec ../codes/stage24/read.xsm
+load --exec ../codes/stage24/exRead.xsm
+load --data ../codes/stage24/numbers.dat

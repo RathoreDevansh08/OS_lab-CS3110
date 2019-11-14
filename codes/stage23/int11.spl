@@ -1,15 +1,19 @@
 alias userSP R0;
 userSP = SP;
+
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
+
 alias PhyPage R1;
 alias offset R2;
 alias SysCallAdd R3;
+
 PhyPage = [PTBR + 2 * ((userSP - 5) / 512)];
 offset = (userSP - 5) % 512;
 SysCallAdd = (PhyPage * 512) + offset;
 alias SysCall R4;
 SysCall = [SysCallAdd];
+
 
 // Getpid
 if (SysCall == 11)
@@ -17,6 +21,7 @@ then
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 11;
 	[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = [SYSTEM_STATUS_TABLE + 1];
 endif;
+
 
 // Getppid
 if (SysCall == 12)
@@ -26,6 +31,8 @@ then
 	ppid = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 2];
 	[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = ppid;
 endif;
+
+
 
 // Wait
 if (SysCall == 13)
@@ -44,6 +51,48 @@ then
 		[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
 		ireturn;
 	endif;
+	
+	
+    alias nxtPID R7;
+    alias currPID R8;
+   
+   ///////////////////////////////////////////////////////////////////////////////////
+     breakpoint;
+    
+     pid = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + ((userSP - 4) % 512)]; 
+    
+    if([PROCESS_TABLE + 16 * pid] == -1)then
+		[PROCESS_TABLE + 16 * [SYSTEM_STATUS_TABLE + 1]] = -1;
+    else
+    	currPID = [SYSTEM_STATUS_TABLE + 1];
+    	nxtPID = pid;
+    	
+    	while([PROCESS_TABLE + 16 * nxtPID + 4] == WAIT_PROCESS ) do
+    		nxtPID =  [PROCESS_TABLE + 16 * nxtPID + 4];
+    		if(nxtPID==currPID)then
+    			break;
+    		endif;
+    	endwhile ;
+    	
+    	if(nxtPID == currPID)then
+    	    print "Deadlock";
+    		nxtPID = pid;
+    		while([PROCESS_TABLE + 16 * nxtPID + 4] == WAIT_PROCESS ) do
+    			[PROCESS_TABLE + 16 * nxtPID] = -1;
+    			nxtPID =  [PROCESS_TABLE + 16 * nxtPID + 4];
+    			
+    			print nxtPID;
+    			if(nxtPID == currPID)then
+    				[PROCESS_TABLE + 16 * nxtPID] = -1;
+    				break;
+    			endif;
+    		endwhile ;
+    	endif;
+    endif;
+    
+    breakpoint;
+    //////////////////////////////////////////////////////////////////////////////////
+   
 
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 4] = WAIT_PROCESS;
 	[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 5] = pid;

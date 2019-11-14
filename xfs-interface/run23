@@ -1,6 +1,6 @@
 fdisk
 load --library ../expl/library.lib
-load --exhandler ../spl/spl_progs/except.xsm
+load --exhandler ../codes/stage23/except.xsm
 load --os ../codes/stage23/os_start.xsm
 load --idle ../codes/stage23/idle.xsm
 load --init ../codes/stage23/init.xsm
@@ -23,7 +23,7 @@ load --module 2 ../codes/stage23/mod2.xsm
 load --module 4 ../codes/stage23/mod4.xsm
 load --module 5 ../codes/stage23/scheduler.xsm
 load --module 7 ../codes/stage23/boot.xsm
-load --exec ../codes/stage23/even.xsm
-load --exec ../codes/stage23/odd.xsm
-load --exec ../codes/stage23/create.xsm
-load --exec ../codes/stage23/delete.xsm
+load --exec ../codes/stage23/test4.xsm
+load --exec ../codes/stage23/test3.xsm
+load --exec ../codes/stage23/test2.xsm
+load --exec ../codes/stage23/test1.xsm

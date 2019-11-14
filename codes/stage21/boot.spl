@@ -1,61 +1,59 @@
-// Interrupt 11 Routine
-loadi(24, 37);
-loadi(25, 38);
+loadi(59, 3);                       
 
-// Interrupt 15 Routine
-loadi(32, 45);
-loadi(33, 46);
+loadi(61, 2);                       
 
-loadi(59, 3);                       // Load Inode Table
-
-loadi(61, 2);                       // Load Disk Free List
-
-loadi(50, 63);                      // Load module 5: Scheduler
+loadi(50, 63);                      
 loadi(51, 64);
 
-loadi(40, 53);                      // Load module 0: Resource Manager
+loadi(40, 53);                      
 loadi(41, 54);
 
-loadi(42, 55);                      // Load module 1: Process Manager
+loadi(42, 55);                      
 loadi(43, 56);
 
-loadi(44, 57);                      // Load module 2: Memory Manager
+loadi(44, 57);                      
 loadi(45, 58);
 
-loadi(48, 61);                      // Load module 4: Device Manager
+loadi(48, 61);                      
 loadi(49, 62);
 
-loadi(14, 27);                      // Load int 6 handler
+loadi(14, 27);                      
 loadi(15, 28);
 
-loadi(16, 29);                      // Load int 7 handler
+loadi(16, 29);                      
 loadi(17, 30);
 
-loadi(18, 31);                      // Load int 8 handler
+loadi(18, 31);                      
 loadi(19, 32);
 
-loadi(20, 33);                      // Load int 9 handler
+loadi(20, 33);                      
 loadi(21, 34);
 
-loadi(22, 35);                      // Load int 10 handler
+loadi(22, 35);                      
 loadi(23, 36);
 
-loadi(4, 17);                       // Load timer interrupt handler
+loadi(24, 37);                      
+loadi(25, 38);
+
+loadi(32, 45);                      
+loadi(33, 46);
+
+loadi(4, 17);                       
 loadi(5, 18);
 
-loadi(8, 21);                       // Load console interrupt handler
+loadi(8, 21);                       
 loadi(9, 22);
 
-loadi(6, 19);                       // Load disk interrupt handler
+loadi(6, 19);                       
 loadi(7, 20);
 
-loadi(2, 15);                       // Load exception handler
+loadi(2, 15);                       
 loadi(3, 16);
 
-loadi(63, 13);                      // Load shared library
+loadi(63, 13);                      
 loadi(64, 14);
 
-loadi(65, 7);                       // Load INIT
+loadi(65, 7);                       
 loadi(66, 8);
 
 loadi(83, 69);                      // Load second process
@@ -86,17 +84,17 @@ alias process_table R1;
 
 page_table = PAGE_TABLE_BASE + 20;
 
-[page_table + 0] = 63;              // Shared Library
+[page_table + 0] = 63;              
 [page_table + 1] = "0100";
 [page_table + 2] = 64;
 [page_table + 3] = "0100";
 
-[page_table + 4] = 78;              // Heap
+[page_table + 4] = 78;              
 [page_table + 5] = "0110";
 [page_table + 6] = 79;
 [page_table + 7] = "0110";
 
-[page_table + 8] = 65;              // Code
+[page_table + 8] = 65;              
 [page_table + 9] = "0100";
 [page_table + 10] = 66;
 [page_table + 11] = "0100";
@@ -105,7 +103,7 @@ page_table = PAGE_TABLE_BASE + 20;
 [page_table + 14] = -1;
 [page_table + 15] = "0000";
 
-[page_table + 16] = 76;             // Stack
+[page_table + 16] = 76;             
 [page_table + 17] = "0110";
 [page_table + 18] = 77;
 [page_table + 19] = "0110";
@@ -114,15 +112,15 @@ page_table = PAGE_TABLE_BASE + 20;
 
 process_table = PROCESS_TABLE + 16;
 
-[process_table + 1] = 1;            // PID
-[process_table + 13] = 8 * 512;     // User stack pointer
-[process_table + 12] = 0;           // Kernel stack pointer offset
-[process_table + 14] = page_table;  // PTBR of INIT
-[process_table + 15] = 10;          // PTLR of INIT
-[process_table + 11] = 80;          // User page area of INIT
-[process_table + 4] = CREATED;      // State of INIT
+[process_table + 1] = 1;            
+[process_table + 13] = 8 * 512;     
+[process_table + 12] = 0;           
+[process_table + 14] = page_table;  
+[process_table + 15] = 10;          
+[process_table + 11] = 80;          
+[process_table + 4] = CREATED;      
 
-[76 * 512] = [65 * 512 + 1];        // Placing entry point of code at the top of the user Stack
+[76 * 512] = [65 * 512 + 1];        
 
 [MEMORY_FREE_LIST + 76] = 1;        // Set all the memory pages used to 1 in the memory free list
 [MEMORY_FREE_LIST + 77] = 1;
@@ -148,8 +146,17 @@ while(proc < 16) do                 // Set state of all other processes to TERMI
     proc = proc + 1;
 endwhile;
 
-[TERMINAL_STATUS_TABLE] = 0;        // Terminal is not busy
-[DISK_STATUS_TABLE] = 0;            // Disk is not busy
+//////////////////////////////////////////////////////
+proc = 0;
+
+while(proc < 16) do
+	[PROCESS_TABLE + 16 * proc ] = 0;
+    proc = proc + 1;
+endwhile;
+//////////////////////////////////////////////////////
+
+[TERMINAL_STATUS_TABLE] = 0;       
+[DISK_STATUS_TABLE] = 0;            
 
 alias perProcRecOff R3;
 perProcRecOff = 494;

@@ -1,22 +1,23 @@
-//SP = SP + 1;
-//[SP] = BP;
 multipush(BP);
-alias curPID R0;
-curPID = [SYSTEM_STATUS_TABLE + 1];
+alias currPID R0;
+
+currPID = [SYSTEM_STATUS_TABLE + 1];
 alias process_table_entry R1;
-process_table_entry = PROCESS_TABLE + curPID * 16;
+process_table_entry = PROCESS_TABLE + currPID * 16;
+
 [process_table_entry + 12] = SP % 512;
 [process_table_entry + 14] = PTBR;
 [process_table_entry + 15] = PTLR;
+
 alias cnt R1;
 alias state R2;
 cnt = 0;
 while (cnt < 16) do
-	curPID = curPID + 1;
-	if (curPID >= 10) then
-		curPID = 0;
+	currPID = currPID + 1;
+	if (currPID >= 10) then
+		currPID = 0;
 	endif;
-	state = [PROCESS_TABLE + curPID * 16 + 4];
+	state = [PROCESS_TABLE + currPID * 16 + 4];
 	if (state == READY || state == CREATED) then
 		break;
 	endif;
@@ -24,27 +25,27 @@ while (cnt < 16) do
 endwhile;
 
 alias new_process R3;
-new_process = PROCESS_TABLE + curPID * 16;
+new_process = PROCESS_TABLE + currPID * 16;
 
-//Set back Kernel SP, PTBR, PTLR
 
+//set back Kernel SP, PTBR, PTLR
 SP = [new_process + 11] * 512 + [new_process + 12];
 PTBR = [new_process + 14];
 PTLR = [new_process + 15];
-[SYSTEM_STATUS_TABLE + 1] = curPID;
+[SYSTEM_STATUS_TABLE + 1] = currPID;
 
 if ([new_process + 4] == CREATED) then
 	[new_process + 4] = RUNNING;
 	[new_process + 9] = 0;
+	
 	BP = [[new_process + 12]];
 	[new_process + 12] = [new_process + 12] - 1;
 	SP = [new_process + 13];
-	breakpoint;
+	
+	//breakpoint;
 	ireturn;
 endif;
 [new_process + 4] = RUNNING;
 multipop(BP);
-//BP = [SP];
-//SP = SP - 1;
-//breakpoint;
+
 return;

@@ -1,10 +1,12 @@
-int main() {
+int main()
+{
     decl
-        int x, y;
+        int temp, pid;
     enddecl
+
     begin
-        x = exposcall ("Getpid");
-        y = exposcall ("Write", -2, x);
+        pid = exposcall("Getpid");
+        temp = exposcall("Write", -2, pid);
         return 0;
     end
 }

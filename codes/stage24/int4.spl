@@ -2,18 +2,19 @@ alias userSP R0;
 userSP = SP;
 [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 13] = SP;
 SP = [PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 11] * 512 - 1;
-alias syscall R1;
 
+alias syscall R1;
 syscall = [[PTBR + 2 * ((userSP - 5) / 512)] * 512 + (userSP - 5) % 512];
 
 if (syscall == 1) then
-	alias filename R2;
+	alias file R2;	//file name & permission
 	alias perm R3;
+	alias entry R4;
+	
 	[PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 9] = 1;
-	filename = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	file = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
 	perm = [[PTBR + 2 * ((userSP - 3) / 512)] * 512 + (userSP - 3) % 512];
 
-	alias entry R4;
 	entry = 1;
 	while (entry < MAX_FILE_NUM) do
 		if ([INODE_TABLE + entry * 16 + 1] == -1) then
@@ -25,41 +26,45 @@ if (syscall == 1) then
 	if (entry == MAX_FILE_NUM) then
 		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -1;
 	else
-		// inode table
-		[INODE_TABLE + entry * 16 + 1] = filename;
-		[INODE_TABLE + entry * 16] = DATA;		// file type
-		[INODE_TABLE + entry * 16 + 2] = 0; 	// filesize
+		//Inode table
+		[INODE_TABLE + entry * 16 + 1] = file;  //file name
+		[INODE_TABLE + entry * 16] = DATA;		//DATA file type
+		[INODE_TABLE + entry * 16 + 2] = 0; 	//file size
+		
 		alias id R6;
 		id = 8;
 		while (id < 12) do
 			[INODE_TABLE + entry * 16 + id] = -1;
 			id = id + 1;
 		endwhile;
-		// userid
+		
+		//Userid
 		[INODE_TABLE + entry * 16 + 3] = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 3];
 		[INODE_TABLE + entry * 16 + 4] = perm;
 
-		//root file
-		[ROOT_FILE + entry * 8] = filename;
-		[ROOT_FILE + entry * 8 + 1] = 0;		//size
-		[ROOT_FILE + entry * 8 + 2] = DATA;	// filetype
-		[ROOT_FILE + entry * 8 + 3] = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 3];		// username
-		[ROOT_FILE + entry * 8 + 4] = perm;	// permission
+		//Root file
+		[ROOT_FILE + entry * 8] = file;
+		[ROOT_FILE + entry * 8 + 1] = 0;			//size
+		[ROOT_FILE + entry * 8 + 2] = DATA;			
+		[ROOT_FILE + entry * 8 + 3] = [PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE + 1] * 16) + 3];		//username
+		[ROOT_FILE + entry * 8 + 4] = perm;			
 		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = 0;
 	endif;
 endif;
 
 if (syscall == 4) then
-	alias filename R2;
+	alias file R2;
 	alias data R3;
+	
 	[PROCESS_TABLE + ([SYSTEM_STATUS_TABLE + 1] * 16) + 9] = 4;
-	filename = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
+	file = [[PTBR + 2 * ((userSP - 4) / 512)] * 512 + (userSP - 4) % 512];
 
 	alias entry R4;
 	entry = 1;
 	data = 1;
+	
 	while (entry < MAX_FILE_NUM) do
-		if ([INODE_TABLE + entry * 16 + 1] == filename) then
+		if ([INODE_TABLE + entry * 16 + 1] == file) then
 			if ([INODE_TABLE + entry * 16] != DATA) then
 				data = 0;
 			endif;
@@ -67,12 +72,15 @@ if (syscall == 4) then
 		endif;
 		entry = entry + 1;
 	endwhile;
+	
+	//breakpoint;
 	if (entry == MAX_FILE_NUM) then
 		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = 0;
 		SP = userSP;
 		[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
 		ireturn;
 	endif;
+	
 	if (data == 0) then
 		[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -1;
 	else
@@ -81,6 +89,7 @@ if (syscall == 4) then
 			SP = userSP;
 			[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
 			[[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -1;
+			
 			ireturn;
 			endif;
 		endif;
@@ -92,7 +101,7 @@ if (syscall == 4) then
 		call MOD_0;
 		multipop(R0, R1, R4);
 		
-		// release file if file is opened
+//Release file if file is opened
 		if ([FILE_STATUS_TABLE + entry * 4 + 1] != -1) then
 			multipush(R0);
 			R1 = 5;
@@ -101,10 +110,6 @@ if (syscall == 4) then
 			call MOD_0;
 			multipop(R0);
 	
-			// SP = userSP;
-			// [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
-			// [[PTBR + 2 * ((userSP - 1) / 512)] * 512 + (userSP - 1) % 512] = -2;
-			// ireturn;
 		else
 		
 			alias id R5;
@@ -113,11 +118,12 @@ if (syscall == 4) then
 				if ([INODE_TABLE + entry * 16 + 8 + id] != -1) then
 					alias temp R6;
 					temp = [INODE_TABLE + entry * 16 + 8 + id] % MAX_BUFFER;
+					
 					if (([BUFFER_TABLE + temp] != -1) && ([BUFFER_TABLE + temp + 1] == 1)) then
 						[BUFFER_TABLE + temp + 1] = 0;
 					endif;
 					
-					// release block
+					//call to Release block
 					multipush(R0, R1, R4, R5);
 					R1 = 4;
 					R2 = [INODE_TABLE + entry * 16 + 8 + id];
@@ -127,15 +133,17 @@ if (syscall == 4) then
 				endif;
 				id = id + 1;
 			endwhile;
+			
 			[INODE_TABLE + entry * 16 + 1] = -1;
 			[ROOT_FILE + entry * 8] = -1;
+			
 			multipush(R0);
 			R1 = 5;
 			R2 = entry;
 			R3 = [SYSTEM_STATUS_TABLE + 1];
 			call MOD_0;
 			multipop(R0);
-			breakpoint;
+			//breakpoint;
 		endif;
 	endif;
 endif;

@@ -156,6 +156,12 @@ while (id < 16) do
 	id = id + 1;
 endwhile;
 
+id = 0;
+while(id < 16) do
+	[PROCESS_TABLE + 16 * id ] = 0;
+    id = id + 1;
+endwhile;
+
 // memory free list
 
 id = 0;

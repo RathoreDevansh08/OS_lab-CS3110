@@ -1,6 +1,6 @@
 fdisk
 load --library ../expl/library.lib
-load --exhandler ../spl/spl_progs/except.xsm
+load --exhandler ../codes/stage22/except.xsm
 load --os ../codes/stage22/os_start.xsm
 load --idle ../codes/stage22/idle.xsm
 load --init ../codes/stage22/init.xsm

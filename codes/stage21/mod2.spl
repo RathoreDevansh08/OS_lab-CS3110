@@ -88,7 +88,7 @@ if(funcNum == 5) then                                           // Get Code Page
             if(([DISK_MAP_TABLE + 10 * proc + i + 4] == blockNum) && ([PAGE_TABLE_BASE + 20 * proc + 2 * i + 8] != -1)) then    // If block is present in some page of some process and it is not invalid
 
                 pageNum = i + 4;                                // Logical page number
-                pageNum = [PTBR + 2 * pageNum];                 // Physical page number
+                pageNum = [PAGE_TABLE_BASE + 20 * proc + 2 * pageNum];                 // Physical page number
 
                 [MEMORY_FREE_LIST + pageNum] = [MEMORY_FREE_LIST + pageNum] + 1;  // Incrementing memory free list entry corresponding to this page
                 retVal = pageNum;                               // return value is the corresponding page
