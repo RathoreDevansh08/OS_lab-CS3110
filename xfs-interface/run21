@@ -1,26 +1,19 @@
-fdisk
 load --library ../expl/library.lib
-load --exhandler ../codes/stage21/exception_handler.xsm
-load --os ../codes/stage21/os_start.xsm
-load --idle ../codes/stage20/idle.xsm
-load --init ../codes/stage21/shell.xsm
-load --int=6 ../codes/stage21/int6.xsm
-load --int=7 ../codes/stage21/int7.xsm
-load --int=8 ../codes/stage21/int8.xsm
-load --int=9 ../codes/stage21/int9.xsm
-load --int=10 ../codes/stage21/int10.xsm
-load --int=11 ../codes/stage21/int11.xsm
-load --int=15 ../codes/stage21/int15.xsm
-load --int=timer ../codes/stage21/timer_int.xsm
-load --int=console ../codes/stage21/console.xsm
-load --int=disk ../codes/stage21/disk_int.xsm
-load --module 0 ../codes/stage21/mod0.xsm
-load --module 1 ../codes/stage21/mod1.xsm
-load --module 2 ../codes/stage21/mod2.xsm
-load --module 4 ../codes/stage21/mod4.xsm
-load --module 5 ../codes/stage21/scheduler_module.xsm
-load --module 7 ../codes/stage21/boot.xsm
-load --exec ../codes/stage21/test4.xsm
-load --exec ../codes/stage21/test3.xsm
-load --exec ../codes/stage21/test2.xsm
-load --exec ../codes/stage21/test1.xsm
+load --exhandler ../spl/spl_progs/haltprog.xsm
+load --os ../codes/stage18/os_start.xsm
+load --idle ../codes/stage18/idle.xsm
+load --init ../codes/stage18/init.xsm
+load --int=6 ../codes/stage18/int6.xsm
+load --int=7 ../codes/stage18/int7.xsm
+load --int=9 ../codes/stage18/int9.xsm
+load --int=10 ../codes/stage18/int10.xsm
+load --int=timer ../codes/stage18/timer18.xsm
+load --int=console ../codes/stage18/console.xsm
+load --int=disk ../codes/stage18/disk_int.xsm
+load --module 0 ../codes/stage18/mod0.xsm
+load --module 1 ../codes/stage18/mod1.xsm
+load --module 2 ../codes/stage18/mod2.xsm
+load --module 4 ../codes/stage18/mod4.xsm
+load --module 5 ../codes/stage18/scheduler.xsm
+load --module 7 ../codes/stage18/boot.xsm
+load --exec ../codes/stage18/odd.xsm
